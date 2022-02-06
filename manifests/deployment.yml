@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-deployment
+  labels:
+    app: admin-deployment
+  annotations:
+    fluxcd.io/automated: "true"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: admin-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: admin-deployment
+    spec:
+      containers:
+      - name: admin-deployment
+        # image: 00000000000000.dkr.ecr.my-region.amazonaws.com/example-eks:tag 
+        image: 555788016410.dkr.ecr.us-west-2.amazonaws.com/stealth-admin:e142d2ee8ead0c8dbc1d5f554c60c2be6146e5b9
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m

@@ -1,0 +1,18 @@
+<?php
+
+return [
+
+   
+	'welcome_subj' => 'Welcome to Stealth Premium',
+	
+	'body_new_user' => 'Your Premium Stealth Account has been created. Please login using the credentials below:<br>
+
+Username: :username <br>
+Password: gameyourcore<br>
+
+Note: Please change your password after the first login.',
+	
+	'body_exist_user' => 'The account for the following Username has been upgraded to a Premium Account. <br> Username: :username ',
+	
+	'password' => 'gameyourcore'
+];

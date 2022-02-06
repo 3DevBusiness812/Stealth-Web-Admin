@@ -1,0 +1,44 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Auth::routes();
+
+Route::group(['prefix' => 'admin/','namespace' => 'Auth','middleware'=>['guest']], function () { 
+    Route::get('login', 'LoginController@showLoginForm')->name('admin.login');
+    Route::post('submitLogin', 'LoginController@login')->name('admin.submitLogin'); 
+});
+Route::group(['prefix' => 'admin/','middleware'=>['auth', 'prevent-back-history']], function () { 
+    Route::post('changePwd', 'Auth\ResetPasswordController@changePwd')->name('admin.changePwd');
+    Route::get('logout', 'Auth\LoginController@logout')->name('admin.logout');
+    Route::get('premiumUsersList', 'Admin\UserController@premiumUsersList')->name('admin.premiumUsersList');
+    Route::get('premiumUsersListDt', 'Admin\UserController@premiumUsersListDt')->name('admin.premiumUsersListDt');
+    Route::get('normalUsersList', 'Admin\UserController@normalUsersList')->name('admin.normalUsersList');
+    Route::get('normalUsersListDt', 'Admin\UserController@normalUsersListDt')->name('admin.normalUsersListDt');
+    Route::post('setPremiumUsers', 'Admin\UserController@setPremiumUsers')->name('admin.setPremiumUsers');
+    Route::post('setNormalUsers', 'Admin\UserController@setNormalUsers')->name('admin.setNormalUsers');
+    Route::get('allUsersList', 'Admin\UserController@allUsersList')->name('admin.allUsersList');
+    Route::get('allUsersListDt', 'Admin\UserController@allUsersListDt')->name('admin.allUsersListDt');
+
+    Route::get('dashboard', 'Admin\UserController@dashboard')->name('admin.dashboard'); 
+    Route::get('editNormalUser/{id?}/{page?}', 'Admin\UserController@editNormalUser')->name('admin.editNormalUser');
+    Route::post('editpostNormalUser', 'Admin\UserController@editpostNormalUser')->name('admin.editpostNormalUser');
+
+    Route::get('deleteNormalUser', 'Admin\UserController@deleteNormalUser')->name('admin.deleteNormalUser');
+    Route::get('deletePremiumUser', 'Admin\UserController@deletePremiumUser')->name('admin.deletePremiumUser');
+ 
+    Route::get('editPremiumUser/{id?}/{page?}', 'Admin\UserController@editPremiumUser')->name('admin.editPremiumUser');
+    Route::post('editpostPremiumUser', 'Admin\UserController@editpostPremiumUser')->name('admin.editpostPremiumUser');
+    Route::get('settings', 'Admin\UserController@settings')->name('admin.settings');
+    Route::post('changeSettings', 'Admin\UserController@changeSettings')->name('admin.changeSettings');	
+
+});

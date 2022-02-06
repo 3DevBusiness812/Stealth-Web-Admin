@@ -1,0 +1,14 @@
+@component('mail::message')
+
+
+# Hi {{ $fullName or '' }},
+
+@isset($body)
+  {{$body}}
+@endisset
+<br>
+Username : {{ $username }}
+<br>Password : {{$password }}
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent
